@@ -1,12 +1,120 @@
-# React + Vite
+# SHCOOL Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SHCOOL is a comprehensive educational platform designed to enhance the learning experience for students, teachers, and administrators. This platform provides a wide range of features including learning path management, portfolio tracking, peer collaboration, mentoring programs, and career guidance.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### For Students
+- Personalized dashboard with key metrics
+- Learning path selection and progress tracking
+- Portfolio management and showcase
+- Peer collaboration and study groups
+- Mentor connection and session scheduling
+- Career exploration and guidance
+- Progress analytics and recommendations
 
-## Expanding the ESLint configuration
+### For Teachers/Administrators
+- Comprehensive student progress monitoring
+- Learning path management and analytics
+- Portfolio oversight and assessment
+- Peer collaboration facilitation
+- Mentoring program administration
+- Career guidance content management
+- Detailed analytics and reporting
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technology Stack
+
+- **Frontend**: React, Material UI, React Router, Context API
+- **Styling**: Tailwind CSS, Emotion
+- **Data Visualization**: Recharts
+- **Build Tool**: Vite
+- **State Management**: React Context API
+- **Data Persistence**: localStorage
+
+## Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or pnpm (package manager)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/RasyaAndrean/SHCOOL-Platform.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd SHCOOL-Platform
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
+
+## Running the Application
+
+### Development Mode
+
+To run the application in development mode with hot reloading:
+
+```bash
+npm run dev
+# or
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173` by default.
+
+### Production Build
+
+To create a production build:
+
+```bash
+npm run build
+# or
+pnpm build
+```
+
+### Preview Production Build
+
+To preview the production build locally:
+
+```bash
+npm run preview
+# or
+pnpm preview
+```
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+├── contexts/            # State management contexts
+├── docs/                # Documentation files
+├── hooks/               # Custom React hooks
+├── pages/               # Page components
+│   ├── admin/           # Admin-specific pages
+│   └── student/         # Student-specific pages
+└── App.jsx              # Main application component
+```
+
+## Available Scripts
+
+- `dev`: Starts the development server
+- `build`: Creates a production build
+- `lint`: Runs ESLint on the project
+- `preview`: Previews the production build locally
+
+## Creator
+
+**Rasya Andrean**
+- Email: rasyaandrean@outlook.co.id
+
+## License
+
+This project is licensed under the MIT License.
