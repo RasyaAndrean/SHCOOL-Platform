@@ -117,4 +117,19 @@ src/
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under a custom license. All rights reserved by Rasya Andrean.
+
+**Commercial Use Restrictions:**
+- This software and its source code may not be sold, sublicensed, or distributed for commercial purposes without explicit written permission from the creator, Rasya Andrean.
+- Unauthorized selling, distribution, or commercial use of this software is strictly prohibited.
+- Any commercial use requires prior written consent from Rasya Andrean (rasyaandrean@outlook.co.id).
+
+**Permitted Use:**
+- This software may be used for educational, personal, or non-commercial purposes.
+- Modifications are allowed for personal or educational use, but distribution of modified versions requires permission.
+
+**Disclaimer:**
+- This software is provided "as is", without warranty of any kind.
+- The creator shall not be liable for any damages arising from the use of this software.
+
+By using this software, you agree to these terms and conditions.
