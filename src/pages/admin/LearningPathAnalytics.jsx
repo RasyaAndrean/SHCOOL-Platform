@@ -5,6 +5,7 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Chip,
@@ -140,9 +141,9 @@ const LearningPathAnalytics = ({ darkMode }) => {
 
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ mb: 4 }}>
-          <button onClick={() => navigate('/admin')} sx={{ mb: 2 }}>
+          <Button onClick={() => navigate('/admin')} sx={{ mb: 2 }}>
             ← Kembali ke Dashboard Admin
-          </button>
+          </Button>
           <Typography variant="h4" gutterBottom>
             Analytics Jalur Belajar
           </Typography>

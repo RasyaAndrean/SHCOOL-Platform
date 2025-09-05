@@ -1,6 +1,6 @@
 import {
   Book as BookIcon,
-  Certificate as CertificateIcon,
+  CardMembership as CertificateIcon,
   Group as GroupIcon,
   Psychology as PsychologyIcon,
   School as SchoolIcon,

@@ -1,6 +1,6 @@
 import {
   Analytics as AnalyticsIcon,
-  Certificate as CertificateIcon,
+  CardMembership as CertificateIcon,
   Group as GroupIcon,
   Psychology as PsychologyIcon,
   School as SchoolIcon,

@@ -37,7 +37,7 @@ import {
 import { useActivityContext } from '../../contexts/ActivityContext';
 import { useAppContext } from '../../contexts/AppContext';
 import { useDataContext } from '../../contexts/DataContext';
-import { useReportContext } from '../../hooks/useReportContext';
+import { useReportContext } from '../../contexts/ReportContext';
 
 const ManageReports = ({ darkMode }) => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const PeerCollaborationContext = createContext();
+export const PeerCollaborationContext = createContext();
 
-const usePeerCollaborationContext = () => {
+export const usePeerCollaborationContext = () => {
   const context = useContext(PeerCollaborationContext);
   if (!context) {
     throw new Error(
@@ -12,7 +12,7 @@ const usePeerCollaborationContext = () => {
   return context;
 };
 
-const PeerCollaborationProvider = ({ children }) => {
+export const PeerCollaborationProvider = ({ children }) => {
   const [connections, setConnections] = useState([]);
   const [collaborations, setCollaborations] = useState([]);
   const [knowledgeSharing, setKnowledgeSharing] = useState([]);
@@ -365,5 +365,4 @@ const PeerCollaborationProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export { PeerCollaborationProvider, usePeerCollaborationContext };
+export default PeerCollaborationContext;

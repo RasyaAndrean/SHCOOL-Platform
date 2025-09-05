@@ -1,7 +1,7 @@
 import {
   Badge as BadgeIcon,
   Book as BookIcon,
-  Certificate as CertificateIcon,
+  CardMembership as CertificateIcon,
   Psychology as PsychologyIcon,
   School as SchoolIcon,
   Star as StarIcon,

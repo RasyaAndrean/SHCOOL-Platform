@@ -19,6 +19,7 @@ import { FeedbackProvider } from './contexts/FeedbackContext';
 import { ForumProvider } from './contexts/ForumContext';
 import { GradesProvider } from './contexts/GradesContext';
 import { LearningAnalyticsProvider } from './contexts/LearningAnalyticsContext';
+import { LearningPathProvider } from './contexts/LearningPathContext';
 import { LibraryProvider } from './contexts/LibraryContext';
 import { MaterialProvider } from './contexts/MaterialContext';
 import { MentoringProvider } from './contexts/MentoringContext';
@@ -112,7 +113,9 @@ const CareerProviders = ({ children }) => (
   <CareerProvider>
     <AlumniProvider>
       <ProjectProvider>
-        <MentoringProvider>{children}</MentoringProvider>
+        <MentoringProvider>
+          <LearningPathProvider>{children}</LearningPathProvider>
+        </MentoringProvider>
       </ProjectProvider>
     </AlumniProvider>
   </CareerProvider>

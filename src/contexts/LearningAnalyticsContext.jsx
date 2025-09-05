@@ -1,9 +1,20 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useAssignmentsContext } from './AssignmentsContext';
 import { useProgressContext } from './ProgressContext';
 import { useProjectContext } from './ProjectContext';
 import { useStudyGroupContext } from './StudyGroupContext';
-import { LearningAnalyticsContext } from './LearningAnalyticsContext.js';
+
+const LearningAnalyticsContext = createContext();
+
+export function useLearningAnalyticsContext() {
+  const context = useContext(LearningAnalyticsContext);
+  if (!context) {
+    throw new Error(
+      'useLearningAnalyticsContext must be used within a LearningAnalyticsProvider'
+    );
+  }
+  return context;
+}
 
 export function LearningAnalyticsProvider({ children }) {
   const { progressData } = useProgressContext();
@@ -214,25 +225,30 @@ export function LearningAnalyticsProvider({ children }) {
     const projectAnalytics = Object.keys(categoryProjects).map(category => {
       const categoryProjectsList = categoryProjects[category];
       const totalProjects = categoryProjectsList.length;
-      
+
       // Count projects with comments as "active"
       const activeProjects = categoryProjectsList.filter(
         p => p.comments && p.comments.length > 0
       ).length;
-      
+
       // Calculate average team size
       const totalTeamMembers = categoryProjectsList.reduce(
-        (sum, project) => sum + (project.teamMembers ? project.teamMembers.length : 1),
+        (sum, project) =>
+          sum + (project.teamMembers ? project.teamMembers.length : 1),
         0
       );
-      const avgTeamSize = totalProjects > 0 ? totalTeamMembers / totalProjects : 0;
+      const avgTeamSize =
+        totalProjects > 0 ? totalTeamMembers / totalProjects : 0;
 
       return {
         category,
         totalProjects,
         activeProjects,
         avgTeamSize: Math.round(avgTeamSize * 10) / 10, // Round to 1 decimal place
-        activityRate: totalProjects > 0 ? Math.round((activeProjects / totalProjects) * 100) : 0,
+        activityRate:
+          totalProjects > 0
+            ? Math.round((activeProjects / totalProjects) * 100)
+            : 0,
       };
     });
 
@@ -332,16 +348,15 @@ export function LearningAnalyticsProvider({ children }) {
       0
     );
     const activityRate =
-      totalProjects > 0
-        ? (activeProjects / totalProjects) * 100
-        : 0;
+      totalProjects > 0 ? (activeProjects / totalProjects) * 100 : 0;
 
     // Calculate weighted average team size
     const totalWeightedTeamSize = analyticsData.projectAnalytics.reduce(
-      (sum, item) => sum + (item.avgTeamSize * item.totalProjects),
+      (sum, item) => sum + item.avgTeamSize * item.totalProjects,
       0
     );
-    const avgTeamSize = totalProjects > 0 ? totalWeightedTeamSize / totalProjects : 0;
+    const avgTeamSize =
+      totalProjects > 0 ? totalWeightedTeamSize / totalProjects : 0;
 
     return {
       totalProjects,
@@ -366,3 +381,5 @@ export function LearningAnalyticsProvider({ children }) {
     </LearningAnalyticsContext.Provider>
   );
 }
+
+export default LearningAnalyticsContext;

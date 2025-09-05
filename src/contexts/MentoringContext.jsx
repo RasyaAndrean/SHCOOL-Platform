@@ -1,6 +1,16 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const MentoringContext = createContext();
+export const MentoringContext = createContext();
+
+export const useMentoringContext = () => {
+  const context = useContext(MentoringContext);
+  if (!context) {
+    throw new Error(
+      'useMentoringContext must be used within a MentoringProvider'
+    );
+  }
+  return context;
+};
 
 export const MentoringProvider = ({ children }) => {
   const [mentors, setMentors] = useState([]);
@@ -411,55 +421,10 @@ export const MentoringProvider = ({ children }) => {
   };
 
   return (
-    <MentoringContext.Provider
-      value={{
-        mentors,
-        mentees,
-        mentoringSessions,
-        mentorRequests,
-        sessionFeedback,
-        mentorAvailability,
-        addMentor,
-        updateMentor,
-        removeMentor,
-        addMentee,
-        updateMentee,
-        removeMentee,
-        requestMentor,
-        updateRequestStatus,
-        addMentoringSession,
-        updateMentoringSession,
-        removeMentoringSession,
-        addSessionFeedback,
-        updateSessionFeedback,
-        removeSessionFeedback,
-        addMentorAvailability,
-        updateMentorAvailability,
-        removeMentorAvailability,
-        getMentorById,
-        getMenteeById,
-        getSessionsForMentor,
-        getSessionsForMentee,
-        getRequestsForMentor,
-        getRequestsFromMentee,
-        getFeedbackForSession,
-        getAvailabilityForMentor,
-        getMentoringStats,
-        getUpcomingSessions,
-        getRecentFeedback,
-      }}
-    >
+    <MentoringContext.Provider value={value}>
       {children}
     </MentoringContext.Provider>
   );
 };
 
-export const useMentoringContext = () => {
-  const context = useContext(MentoringContext);
-  if (!context) {
-    throw new Error(
-      'useMentoringContext must be used within a MentoringProvider'
-    );
-  }
-  return context;
-};
+export default MentoringContext;

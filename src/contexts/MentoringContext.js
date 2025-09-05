@@ -1,3 +1,5 @@
-import { createContext } from 'react';
-
-export const MentoringContext = createContext();
+export {
+  MentoringContext,
+  MentoringProvider,
+  useMentoringContext,
+} from './MentoringContext.jsx';

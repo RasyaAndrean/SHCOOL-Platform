@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const AchievementContext = createContext();
+export const AchievementContext = createContext();
 
-const useAchievementContext = () => {
+export const useAchievementContext = () => {
   const context = useContext(AchievementContext);
   if (!context) {
     throw new Error(
@@ -12,7 +12,7 @@ const useAchievementContext = () => {
   return context;
 };
 
-const AchievementProvider = ({ children }) => {
+export const AchievementProvider = ({ children }) => {
   const [achievements, setAchievements] = useState(() => {
     const saved = localStorage.getItem('achievements');
     return saved ? JSON.parse(saved) : [];
@@ -175,5 +175,4 @@ const AchievementProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export { AchievementProvider, useAchievementContext };
+export default AchievementContext;

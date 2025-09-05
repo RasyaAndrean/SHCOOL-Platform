@@ -5,6 +5,7 @@ import {
   Email as EmailIcon,
   Person as PersonIcon,
   Phone as PhoneIcon,
+  Psychology as PsychologyIcon,
   School as SchoolIcon,
   Work as WorkIcon,
 } from '@mui/icons-material';

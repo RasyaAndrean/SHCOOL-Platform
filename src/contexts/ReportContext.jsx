@@ -9,7 +9,7 @@ import { useProjectContext } from './ProjectContext';
 import { useQuizContext } from './QuizContext';
 import { useStudyGroupContext } from './StudyGroupContext';
 
-const ReportContext = createContext();
+export const ReportContext = createContext();
 
 export function useReportContext() {
   const context = useContext(ReportContext);
@@ -290,3 +290,5 @@ export function ReportProvider({ children }) {
     <ReportContext.Provider value={value}>{children}</ReportContext.Provider>
   );
 }
+
+export default ReportContext;

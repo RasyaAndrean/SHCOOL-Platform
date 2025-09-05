@@ -3,7 +3,7 @@ import { useCareerContext } from './CareerContext';
 import { useProgressContext } from './ProgressContext';
 import { useSkillContext } from './SkillContext';
 
-const LearningPathContext = createContext();
+export const LearningPathContext = createContext();
 
 export const useLearningPathContext = () => {
   const context = useContext(LearningPathContext);
@@ -534,3 +534,5 @@ export const LearningPathProvider = ({ children }) => {
     </LearningPathContext.Provider>
   );
 };
+
+export default LearningPathContext;

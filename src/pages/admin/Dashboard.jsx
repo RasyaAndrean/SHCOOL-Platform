@@ -73,9 +73,9 @@ import { useLearningAnalyticsContext } from '../../contexts/LearningAnalyticsCon
 import { useLearningPathContext } from '../../contexts/LearningPathContext';
 import { usePeerCollaborationContext } from '../../contexts/PeerCollaborationContext'; // Add this line
 import { useRecommendationContext } from '../../contexts/RecommendationContext';
+import { useReportContext } from '../../contexts/ReportContext';
 import { useSkillContext } from '../../contexts/SkillContext';
 import { useStudyProgressContext } from '../../contexts/StudyProgressContext';
-import { useReportContext } from '../../hooks/useReportContext';
 
 const Dashboard = ({ darkMode, toggleDarkMode }) => {
   const { logout } = useAppContext();

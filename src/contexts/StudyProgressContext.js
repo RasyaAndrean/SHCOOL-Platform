@@ -1,3 +1,5 @@
-import { createContext } from 'react';
-
-export const StudyProgressContext = createContext();
+export {
+  StudyProgressContext,
+  StudyProgressProvider,
+  useStudyProgressContext,
+} from './StudyProgressContext.jsx';

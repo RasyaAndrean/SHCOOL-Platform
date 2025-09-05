@@ -34,7 +34,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminHeader from '../../components/AdminHeader';
+import Header from '../../components/Header';
 import { useActivityContext } from '../../contexts/ActivityContext';
 import { useClassroomContext } from '../../contexts/ClassroomContext';
 
@@ -204,7 +204,7 @@ const ManageClassroomResources = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <AdminHeader darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Box sx={{ textAlign: 'center', mb: 6 }}>

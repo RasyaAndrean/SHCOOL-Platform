@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const FeedbackContext = createContext();
+export const FeedbackContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useFeedbackContext = () => {
@@ -168,3 +168,5 @@ export const FeedbackProvider = ({ children }) => {
     </FeedbackContext.Provider>
   );
 };
+
+export default FeedbackContext;

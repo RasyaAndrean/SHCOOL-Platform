@@ -1,3 +1,5 @@
-import { createContext } from 'react';
-
-export const PeerCollaborationContext = createContext();
+export {
+  PeerCollaborationContext,
+  PeerCollaborationProvider,
+  usePeerCollaborationContext,
+} from './PeerCollaborationContext.jsx';

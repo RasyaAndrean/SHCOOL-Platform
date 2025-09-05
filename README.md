@@ -5,6 +5,7 @@ SHCOOL is a comprehensive educational platform designed to enhance the learning 
 ## Features
 
 ### For Students
+
 - Personalized dashboard with key metrics
 - Learning path selection and progress tracking
 - Portfolio management and showcase
@@ -14,6 +15,7 @@ SHCOOL is a comprehensive educational platform designed to enhance the learning 
 - Progress analytics and recommendations
 
 ### For Teachers/Administrators
+
 - Comprehensive student progress monitoring
 - Learning path management and analytics
 - Portfolio oversight and assessment
@@ -39,11 +41,13 @@ SHCOOL is a comprehensive educational platform designed to enhance the learning 
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/RasyaAndrean/SHCOOL-Platform.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd SHCOOL-Platform
    ```
@@ -113,6 +117,7 @@ src/
 ## Creator
 
 **Rasya Andrean**
+
 - Email: rasyaandrean@outlook.co.id
 
 ## License
@@ -120,15 +125,18 @@ src/
 This project is licensed under a custom license. All rights reserved by Rasya Andrean.
 
 **Commercial Use Restrictions:**
+
 - This software and its source code may not be sold, sublicensed, or distributed for commercial purposes without explicit written permission from the creator, Rasya Andrean.
 - Unauthorized selling, distribution, or commercial use of this software is strictly prohibited.
 - Any commercial use requires prior written consent from Rasya Andrean (rasyaandrean@outlook.co.id).
 
 **Permitted Use:**
+
 - This software may be used for educational, personal, or non-commercial purposes.
 - Modifications are allowed for personal or educational use, but distribution of modified versions requires permission.
 
 **Disclaimer:**
+
 - This software is provided "as is", without warranty of any kind.
 - The creator shall not be liable for any damages arising from the use of this software.
 

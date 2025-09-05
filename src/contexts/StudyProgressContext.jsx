@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const StudyProgressContext = createContext();
+export const StudyProgressContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useStudyProgressContext = () => {
@@ -267,3 +267,5 @@ export const StudyProgressProvider = ({ children }) => {
     </StudyProgressContext.Provider>
   );
 };
+
+export default StudyProgressContext;

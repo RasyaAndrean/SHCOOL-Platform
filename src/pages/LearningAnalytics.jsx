@@ -3,7 +3,6 @@ import {
   Group as GroupIcon,
   School as SchoolIcon,
   TrendingUp as TrendingUpIcon,
-  Work as WorkIcon,
 } from '@mui/icons-material';
 import {
   Box,
@@ -14,7 +13,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useMemo } from 'react';
+import React from 'react';
 import {
   Bar,
   BarChart,
@@ -30,7 +29,7 @@ import {
 } from 'recharts';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { useLearningAnalytics } from '../hooks/useLearningAnalytics';
+import { useLearningAnalyticsContext } from '../contexts/LearningAnalyticsContext';
 
 const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
   const {
@@ -40,10 +39,10 @@ const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
     getMostActiveGroups,
     getAssignmentPerformanceSummary,
     getProjectAnalyticsSummary,
-  } = useLearningAnalytics();
+  } = useLearningAnalyticsContext();
 
   // Generate analytics when component mounts
-  useMemo(() => {
+  React.useMemo(() => {
     generateAnalytics();
   }, []);
 
@@ -191,67 +190,63 @@ const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
               </CardContent>
             </Card>
           </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <WorkIcon sx={{ mr: 1 }} />
-                  <Typography variant="h6">Total Proyek</Typography>
-                </Box>
-                <Typography variant="h4" align="center" color="warning.main">
-                  {projectSummary.totalProjects}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  align="center"
-                  color="text.secondary"
-                >
-                  Aktif: {projectSummary.activityRate}%
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
         </Grid>
 
         {/* Charts Section */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid container spacing={3}>
           {/* Study Patterns Chart */}
           <Grid item xs={12} md={6}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  Pola Belajar per Mata Pelajaran
+                  Pola Belajar
                 </Typography>
-                <Box sx={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={studyPatternsData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={studyPatternsData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Progress" fill="#8884d8" />
+                    <Bar dataKey="Frequency" fill="#82ca9d" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Top Performing Subjects Chart */}
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Mata Pelajaran Terbaik
+                </Typography>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={topSubjectsData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label={({ name, percent }) =>
+                        `${name} ${(percent * 100).toFixed(0)}%`
+                      }
                     >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="name"
-                        angle={-45}
-                        textAnchor="end"
-                        height={60}
-                      />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        dataKey="Progress"
-                        fill="#8884d8"
-                        name="Progress (%)"
-                      />
-                      <Bar
-                        dataKey="Frequency"
-                        fill="#82ca9d"
-                        name="Frekuensi Studi"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Box>
+                      {topSubjectsData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </Grid>
@@ -263,84 +258,17 @@ const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
                 <Typography variant="h6" gutterBottom>
                   Performa Tugas
                 </Typography>
-                <Box sx={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={assignmentPerformanceData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="name"
-                        angle={-45}
-                        textAnchor="end"
-                        height={60}
-                      />
-                      <YAxis
-                        yAxisId="left"
-                        orientation="left"
-                        domain={[0, 100]}
-                      />
-                      <YAxis
-                        yAxisId="right"
-                        orientation="right"
-                        domain={[0, 100]}
-                      />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        yAxisId="left"
-                        dataKey="Completion"
-                        fill="#ffc658"
-                        name="Penyelesaian (%)"
-                      />
-                      <Bar
-                        yAxisId="right"
-                        dataKey="Score"
-                        fill="#ff7300"
-                        name="Nilai Rata-rata"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Top Performing Subjects Pie Chart */}
-          <Grid item xs={12} md={6}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Mata Pelajaran dengan Progress Terbaik
-                </Typography>
-                <Box sx={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={topSubjectsData}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={true}
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {topSubjectsData.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={value => [`${value}%`, 'Progress']} />
-                      <Legend />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </Box>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={assignmentPerformanceData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Completion" fill="#ffc658" />
+                    <Bar dataKey="Score" fill="#0088fe" />
+                  </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </Grid>
@@ -352,30 +280,38 @@ const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
                 <Typography variant="h6" gutterBottom>
                   Aktivitas Grup Belajar
                 </Typography>
-                <Box sx={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={groupActivityData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="name"
-                        angle={-45}
-                        textAnchor="end"
-                        height={60}
-                      />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        dataKey="Activity"
-                        fill="#0088FE"
-                        name="Skor Aktivitas"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Box>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={groupActivityData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Activity" fill="#ff7300" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Learning Efficiency Chart */}
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Efisiensi Belajar
+                </Typography>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={learningEfficiencyData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Efficiency" fill="#8dd1e1" />
+                    <Bar dataKey="Progress" fill="#a4de6c" />
+                  </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </Grid>
@@ -385,169 +321,139 @@ const LearningAnalytics = ({ darkMode, toggleDarkMode }) => {
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  Analisis Proyek per Kategori
+                  Analitik Proyek
                 </Typography>
-                <Box sx={{ height: 300 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={projectAnalyticsData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="name"
-                        angle={-45}
-                        textAnchor="end"
-                        height={60}
-                      />
-                      <YAxis yAxisId="left" orientation="left" />
-                      <YAxis yAxisId="right" orientation="right" domain={[0, 100]} />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        yAxisId="left"
-                        dataKey="Projects"
-                        fill="#8884d8"
-                        name="Total Proyek"
-                      />
-                      <Bar
-                        yAxisId="right"
-                        dataKey="Activity"
-                        fill="#82ca9d"
-                        name="Tingkat Aktivitas (%)"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Box>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={projectAnalyticsData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Projects" fill="#fdb462" />
+                    <Bar dataKey="Activity" fill="#b3de69" />
+                  </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
 
         {/* Additional Insights */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
-          {/* Most Active Groups */}
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={3} sx={{ mt: 4 }}>
+          <Grid item xs={12} md={4}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  Grup Belajar Paling Aktif
+                  Grup Belajar Teraktif
                 </Typography>
                 {mostActiveGroups.length > 0 ? (
-                  <Grid container spacing={2}>
+                  <Box>
                     {mostActiveGroups.map((group, index) => (
-                      <Grid item xs={12} key={group.groupId}>
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Box>
-                            <Typography variant="subtitle1">
-                              {group.groupName}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              {group.memberCount} anggota •{' '}
-                              {group.materialsCount} materi •{' '}
-                              {group.discussionsCount} diskusi
-                            </Typography>
-                          </Box>
-                          <Chip
-                            label={`Skor: ${group.activityScore}`}
-                            color={index === 0 ? 'primary' : 'default'}
-                            variant={index === 0 ? 'filled' : 'outlined'}
-                          />
-                        </Box>
-                      </Grid>
+                      <Box
+                        key={group.groupId}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          py: 1,
+                          borderBottom:
+                            index < mostActiveGroups.length - 1 ? 1 : 0,
+                          borderColor: 'divider',
+                        }}
+                      >
+                        <Typography variant="body2">
+                          {group.groupName}
+                        </Typography>
+                        <Chip
+                          label={`${group.activityScore} aktifitas`}
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                        />
+                      </Box>
                     ))}
-                  </Grid>
+                  </Box>
                 ) : (
-                  <Typography color="text.secondary">
-                    Belum ada data grup belajar
+                  <Typography variant="body2" color="text.secondary">
+                    Tidak ada data grup belajar
                   </Typography>
                 )}
               </CardContent>
             </Card>
           </Grid>
 
-          {/* Learning Efficiency */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  Efisiensi Belajar
+                  Statistik Proyek
                 </Typography>
-                <Box sx={{ height: 250 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={learningEfficiencyData}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar
-                        dataKey="Efficiency"
-                        fill="#82ca9d"
-                        name="Efisiensi"
-                      />
-                      <Bar
-                        dataKey="Progress"
-                        fill="#ffc658"
-                        name="Progress Rata-rata"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography variant="h4" color="primary">
+                    {projectSummary.totalProjects}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Total Proyek
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    mt: 2,
+                  }}
+                >
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="h6" color="success.main">
+                      {projectSummary.activeProjects}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Aktif
+                    </Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="h6" color="info.main">
+                      {projectSummary.avgTeamSize}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Rata-rata Tim
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Rekomendasi
+                </Typography>
+                <Box>
+                  {analyticsData.studyPatterns.length > 0 ? (
+                    <Box>
+                      <Typography variant="body2" paragraph>
+                        Fokus pada mata pelajaran dengan progress rendah untuk
+                        meningkatkan performa akademik secara keseluruhan.
+                      </Typography>
+                      <Typography variant="body2">
+                        Pertimbangkan untuk bergabung dengan grup belajar untuk
+                        meningkatkan interaksi dan pemahaman materi.
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Typography variant="body2" color="text.secondary">
+                      Tidak ada rekomendasi saat ini. Lakukan beberapa aktivitas
+                      belajar untuk mendapatkan analisis.
+                    </Typography>
+                  )}
                 </Box>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
-
-        {/* Information Section */}
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Cara Membaca Analytics Dashboard
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1" gutterBottom>
-                  1. Pola Belajar
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Grafik ini menunjukkan progress dan frekuensi studi per mata
-                  pelajaran. Semakin tinggi frekuensi dan progress, semakin
-                  konsisten kamu belajar.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1" gutterBottom>
-                  2. Performa Tugas
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Grafik ini menunjukkan tingkat penyelesaian tugas dan nilai
-                  rata-rata. Targetkan penyelesaian 100% dengan nilai rata-rata
-                  di atas 80.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1" gutterBottom>
-                  3. Efisiensi Belajar
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Grafik ini menunjukkan efisiensi belajarmu dari waktu ke
-                  waktu. Semakin tinggi skor efisiensi, semakin produktif waktu
-                  belajarmu.
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
       </Container>
 
       <Footer />

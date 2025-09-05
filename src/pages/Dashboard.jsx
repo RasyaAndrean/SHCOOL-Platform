@@ -1,5 +1,6 @@
 import {
   Analytics as AnalyticsIcon,
+  ArrowForward as ArrowForwardIcon,
   Assignment as AssignmentIcon,
   BarChart as BarChartIcon,
   Bookmark as BookmarkIcon,
@@ -17,7 +18,6 @@ import {
   Lightbulb as LightbulbIcon,
   MilitaryTech as MilitaryTechIcon,
   Person as PersonIcon,
-  // Add new icons for our new features
   Psychology as PsychologyIcon,
   RateReview as RateReviewIcon,
   Recommend as RecommendIcon,
@@ -34,6 +34,7 @@ import {
   CardContent,
   Container,
   Grid,
+  LinearProgress,
   Typography,
 } from '@mui/material';
 import { useEffect } from 'react';

@@ -18,20 +18,31 @@ export const AppProvider = ({ children }) => {
 
   // Check for saved theme preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setDarkMode(true);
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        setDarkMode(true);
+      }
+    } catch (error) {
+      console.warn(
+        'Unable to access localStorage for theme preference:',
+        error
+      );
     }
   }, []);
 
   // Apply theme changes
   useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    try {
+      if (darkMode) {
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    } catch (error) {
+      console.warn('Unable to access localStorage for theme:', error);
     }
   }, [darkMode]);
 
@@ -43,7 +54,14 @@ export const AppProvider = ({ children }) => {
     // Simple authentication logic (in a real app, this would be more secure)
     if (username === 'admin' && password === 'admin123') {
       setIsAuthenticated(true);
-      localStorage.setItem('isAuthenticated', 'true');
+      try {
+        localStorage.setItem('isAuthenticated', 'true');
+      } catch (error) {
+        console.warn(
+          'Unable to access localStorage for authentication:',
+          error
+        );
+      }
       addNotification('Login berhasil!', 'success');
       return true;
     }
@@ -53,7 +71,11 @@ export const AppProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+    try {
+      localStorage.removeItem('isAuthenticated');
+    } catch (error) {
+      console.warn('Unable to access localStorage for authentication:', error);
+    }
     addNotification('Logout berhasil!', 'info');
   };
 
@@ -111,3 +133,5 @@ export const AppProvider = ({ children }) => {
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
+
+export default AppContext;

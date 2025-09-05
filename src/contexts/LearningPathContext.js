@@ -1,3 +1,5 @@
-import { createContext } from 'react';
-
-export const LearningPathContext = createContext();
+export {
+  LearningPathContext,
+  LearningPathProvider,
+  useLearningPathContext,
+} from './LearningPathContext.jsx';
